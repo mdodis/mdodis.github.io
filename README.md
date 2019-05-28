@@ -12,7 +12,7 @@ And to talk about my experience with computers.
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 | beebop    |C++            | A graphical music player for Windows and Linux, currently working on a custom UI with a mix of statefull and immediate mode GUI|
-(: rules="groups")
+
 
 ## A little bit about me
 I'm studying Computer Science (2 years at the time of writting) at the University of Crete, but I was enthusiastic about
