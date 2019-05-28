@@ -4,11 +4,13 @@ Hello! My name is Michael Dodis, and this is a short page for me to show off all
 And to talk about my experience with computers.
 
 ## Completed Projects
+
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 |CHIP8      |C++            | A chip8 emulator I wrote when I had some free time during my Easter vacations|
 
 ## Ongoing Projects
+
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 | beebop    |C++            | A graphical music player for Windows and Linux, currently working on a custom UI with a mix of statefull and immediate mode GUI|
