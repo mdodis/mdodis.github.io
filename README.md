@@ -22,6 +22,7 @@ unfinished or abandoned and I'll post them here over time).
 
 ## Jump to specific entry
 * [How I write markdown for this page](#how-i-write-markdown-for-this-site)
+* [Love2d](#love)
 
 ----
 
@@ -106,13 +107,24 @@ Well that happened. I don't know when, how or what lead me to it, but after some
 making sense. It was exhilarating. Looking back, it doesn't seem much, but at that time, it meant the *world*
 to me.
 
+Of course, this is not the whole story, I had run-ins with many different development tools; besides
+Unity, there was also Construct 2. Construct 2 has a special place in my lifetime; So I'll be posting
+about it from time to time.
+
+After some time, working with C++ and OpenGL, attempting to create a "Game Engine" (if you could even say that),
+I messed around with several other stuff. Not just in C++! There was also [love](#love).
+
+Now, I'm working on several stuff, whenever I have the time, so expect more posts on... eh, I don't know, whenever I
+feel like I need to say something significant. Blog entries will be more specific on topics in terms of my experiences, so
+watch out for them! I mean, if you want to; I don't know why I even started writing this page. I'd delete it, but...
+It took some time to write all of those words, so I guess I'll keep it.
 
 ## Blog Entries
 
 ### How I write markdown for this site
 
 At the time of writing (06/01/19), I currently use Neovim, as my main code editor.
-It has significant improvements over the original. The most important to me was the clipboard
+It has significant improvements over the original. The most important one to me was the clipboard
 management. Maybe I don't see a good use case for it; but I honestly believe that separate
 copy clipboards is just madness. If you use Neovim, I highly recommend the following:
 ```
@@ -127,10 +139,32 @@ Since I had zathura installed, an excellent PDF viewer (and other formats, but I
 that will reload the current file, if it has changed. So, naturally I turned to Google, to look for "markdown to PDF".
 Apart from pandoc, which comes with too many things that I don't require, I didn't find much. A quick search on the AUR,
 yielded the [following](https://aur.archlinux.org/packages/md2pdf/). Great! A simple command-line tool that compiles
-markdown to A PDF with Github's stylesheet!
+markdown to a PDF with Github's stylesheet!
 
 The only thing to handle now, is integration with Neovim. Two auto-commands that bound "leader-M" (my *make* keybind), and
 "F5" (my *run* key), and I had a very nice live preview! You can find these settings in
 my [dotfiles](https://github.com/mdodis/dotfiles).
 
 One thing that I didn't bother to do, was to have it recompile on save. But the make keybind is just fine for me.
+
+### Love
+
+[Love2d](https://love2d.org/) was special to me. I may have quit using it (although I do peruse the documentation
+from time to time), but it'll always have a special place in my heart. Why, you ask?
+
+Because it's simple and powerful. Lua is a great scripting language (apart from counting from 1. Why!?); It's simple
+to develop on. Just grab the executable, install it, and write code in main! The language doesn't even support OOP by
+default, but you can implement it yourself with meta-programming. Don't get me wrong; Game engines like Game Maker Studio 2
+Construct 2, Unity's 2D support (etc.), and especially Game Maker are the norm in 2D indie games, and for good reason! They all
+have a lot of material and tutorials all over the internet.
+
+But, one major grudge that I have with those Engines, is that they *really* want to do the project management for you.
+Meaning, how they'll process your art packages, and sometimes even your code structure (looking at you, Game Maker). Of the ones
+that I have used, Game Maker probably does the work job. It's entitled to it though, since they need to support older versions
+of the engine. But the problem is there. Your code goes all over the place with varying *types* of code: initialization code,
+scene code and more.
+
+But, this is from the perspective of someone who prefers to do those things himself. Love2d is excellent for that, just run it
+and it'll basically have 3 callback functions: init, update and draw. You don't need more than that! If you're interested,
+[recursor](https://www.youtube.com/watch?v=Jte9o4S6rlo) has an excellent tutorial series. Beware though, there were some changes
+to how the colors work (from 0.0 to 1.0 RGBA).
