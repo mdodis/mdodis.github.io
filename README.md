@@ -3,21 +3,28 @@
 Hello! My name is Michael Dodis, and this is a short page for me to show off all my projects!
 And to talk about my experience with computers.
 
+Edit: This may server a dual purpose as a blog. I'll be looking through some other projects (either
+unfinished or abandoned and I'll post them here over time).
+
 ## Completed Projects
 
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
-|CHIP8      |C++            | A chip8 emulator I wrote when I had some free time during my Easter vacations|
+|[CHIP8](https://github.com/mdodis/chip8)      |C++| A chip8 emulator I wrote when I had some free time during my Easter vacations|
 
 ## Ongoing Projects
 
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
-| beebop    |C++            | A graphical music player for Windows and Linux, currently working on a custom UI with a mix of statefull and immediate mode GUI|
+| beebop    |C++            | A graphical music player for Windows and Linux, currently working on a custom UI with a mix of stateful and immediate mode GUI|
 
+## Jump to specific entry
+* [How I write markdown for this page](#how-i-write-markdown-for-this-site)
+
+----
 
 ## A little bit about me
-I'm studying Computer Science (2 years at the time of writting) at the University of Crete, but I was enthusiastic about
+I'm studying Computer Science (2 years at the time of writing) at the University of Crete, but I was enthusiastic about
 computers for as long as I can remember now.
 
 ## A little bit *more* about me
@@ -41,7 +48,7 @@ I've since lost _all_ those files. I've since learnt my lesson, and I keep multi
 
 At some point I remember my father showed me Blender and my mouth fell open with what it could do!
 Back in the day he did modelling with LightWave 3D in his Amiga, so I guess he had an old itch to
-scratch. I hastily downloaded it to my PC and started messing around with it. Besides two or three 
+scratch. I hastily downloaded it to my PC and started messing around with it. Besides two or three
 shortcuts, I didn't learn much though.
 
 There was another period of nothingness, until I found out about Unity3D. Again, hastily downloaded the
@@ -57,7 +64,7 @@ impressive.
 
 [comment]: <> (TODO: pictures!)
 
-But I wanted to go deeper. I know... I'm already a demon. Heaven's not my kind of place, anyway ( get the referrence?)
+But I wanted to go deeper. I know... I'm already a demon. Heaven's not my kind of place, anyway ( get the reference?)
 
 ### Deeper!
 
@@ -73,7 +80,7 @@ out why. You _cannot_ imagine the joy that was brought to my eyes when it finall
 
 But, what is this? I have to go through a whole series on programming command-line programs to learn C++?
 Why? Oh, because it's low-level or whatever. Worst marketing strategy. Thankfully, I wasn't willing to go
-through the slow, painfull process of doing all this. I knew that I'd quit after a while.
+through the slow, painful process of doing all this. I knew that I'd quit after a while.
 
 And this is a great time to make a point out of this. Something my father taught me that I'll remember for
 the rest of my life. It was about how to get into new things. I used to think that I first had to go through
@@ -85,7 +92,7 @@ things that now are part of my life, if not for that single piece of advice.
 So I then looked up "How to make a game in C++" on google, and strangely, the first results included OpenGL.
 I remember following about 5 or so programming tutorials on OpenGL, maybe I'll list them out if I ever
 have the time. To remind you, I didn't understand a single thing about C++, not even the basics of C for that
-matter. Add up referrences, classes, STL to all the cruft that comes from working with C (i.e pointers), and
+matter. Add up references, classes, STL to all the cruft that comes from working with C (i.e pointers), and
 it's not surprising that I was constantly frustrated when I was following the tutorials.
 
 But I was doing what I liked, which apparently was *not* game programming, but systems and graphics. So I
@@ -94,5 +101,34 @@ persevered through all that frustration and continued hitting my head against th
 I don't exactly remember when, but at some point, everything started "clicking". You know that feeling when
 you realise that you can rationalize about something, like it is the only logical thing that could happen?
 Well that happened. I don't know when, how or what lead me to it, but after some time, things just started
-making sense. It was exhilirating. Looking back, it doesn't seem much, but at that time, it meant the *world*
+making sense. It was exhilarating. Looking back, it doesn't seem much, but at that time, it meant the *world*
 to me.
+
+
+## Blog Entries
+
+### How I write markdown for this site
+
+At the time of writing (06/01/19), I currently use Neovim, as my main code editor.
+It has significant improvements over the original. The most important to me was the clipboard
+management. Maybe I don't see a good use case for it; but I honestly believe that separate
+copy clipboards is just madness. If you use Neovim, I highly recommend the following:
+```
+set clipboard   +=unnamedplus
+```
+
+Moving on, the main feature I wanted in terms of Markdown support, was a light spell-checker
+(thankfully ships with the package and works like a charm), but most importantly, a preview (since
+I don't really know Markdown all too well).
+
+Since I had zathura installed, an excellent PDF viewer (and other formats, but I only need it for this),
+that will reload the current file, if it has changed. So, naturally I turned to Google, to look for "markdown to PDF".
+Apart from pandoc, which comes with too many things that I don't require, I didn't find much. A quick search on the AUR,
+yielded the [following](https://aur.archlinux.org/packages/md2pdf/). Great! A simple command-line tool that compiles
+markdown to A PDF with Github's stylesheet!
+
+The only thing to handle now, is integration with Neovim. Two auto-commands that bound "leader-M" (my *make* keybind), and
+"F5" (my *run* key), and I had a very nice live preview! You can find these settings in
+my [dotfiles](https://github.com/mdodis/dotfiles).
+
+One thing that I didn't bother to do, was to have it recompile on save. But the make keybind is just fine for me.
