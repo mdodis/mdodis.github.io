@@ -11,6 +11,8 @@ unfinished or abandoned and I'll post them here over time).
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 |[CHIP8](https://github.com/mdodis/chip8)      |C++| A chip8 emulator I wrote when I had some free time during my Easter vacations|
+|[Room generator](https://github.com/mdodis/Procedural)|Javascript|Simple room generator with javascript and p5js|
+|[tunedotsh](https://github.com/mdodis/tunedotsh)|C++|Music player on the command-line (Windows/Linux), predecessor to beebop|
 
 ## Ongoing Projects
 
