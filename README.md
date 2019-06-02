@@ -3,7 +3,7 @@
 Hello! My name is Michael Dodis, and this is a short page for me to show off all my projects!
 And to talk about my experience with computers.
 
-Edit: This may server a dual purpose as a blog. I'll be looking through some other projects (either
+Edit: This may serve a dual purpose as a blog. I'll be looking through some other projects (either
 unfinished or abandoned and I'll post them here over time).
 
 ## Completed Projects
