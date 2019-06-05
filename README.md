@@ -14,7 +14,7 @@ unfinished or abandoned and I'll post them here over time).
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 |[CHIP8](https://github.com/mdodis/chip8)      |C++| A chip8 emulator I wrote when I had some free time during my Easter vacations|
-|[Room generator](room_generator/room.html)|Javascript|Simple room generator with javascript and p5js|
+|[Room generator](https://github.com/mdodis/Procedural)|Javascript|Simple room generator with javascript and p5js|
 |[tunedotsh](https://github.com/mdodis/tunedotsh)|C++|Music player on the command-line (Windows/Linux), predecessor to beebop|
 
 ## Ongoing Projects
@@ -329,25 +329,3 @@ doing the exact same thing again, expecting to somehow get further, is probably 
 to realise this.
 
 Thank you for reading this reaaally long post!
-
-### Room Generator
-
-<html>
-	<head>
-
-		<meta charset="utf-8">
-
-		<title>Room Gen</title>
-
-		<link rel="stylesheet" href="style.css">
-
-		<script src="lib/p5.js" charset="utf-8"></script>
-		<script src="lib/p5.dom.js" charset="utf-8"></script>
-		<script src="room_generator/sketch.js" charset="utf-8"></script>
-	</head>
-	<body>
-		<h1>Room Generator</h1>
-
-	</body>
-
-</html>
