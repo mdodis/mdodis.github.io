@@ -1,3 +1,6 @@
+[comment]: <> (TODO: pictures!)
+[comment]: <> (TODO: Post - Love Woes (medactionside))
+[comment]: <> (TODO: Post - Red Plat (Construct 2))
 
 # My Personal Page
 Hello! My name is Michael Dodis, and this is a short page for me to show off all my projects!
@@ -11,7 +14,7 @@ unfinished or abandoned and I'll post them here over time).
 | Name      |   Language    |   Description |
 | --------- | ------------- | ------------- |
 |[CHIP8](https://github.com/mdodis/chip8)      |C++| A chip8 emulator I wrote when I had some free time during my Easter vacations|
-|[Room generator](https://github.com/mdodis/Procedural)|Javascript|Simple room generator with javascript and p5js|
+|[Room generator](room_generator/room.html)|Javascript|Simple room generator with javascript and p5js|
 |[tunedotsh](https://github.com/mdodis/tunedotsh)|C++|Music player on the command-line (Windows/Linux), predecessor to beebop|
 
 ## Ongoing Projects
@@ -23,7 +26,7 @@ unfinished or abandoned and I'll post them here over time).
 ## Jump to specific entry
 * [How I write markdown for this page](#how-i-write-markdown-for-this-site)
 * [Love2d](#love)
-
+* [Love2d woes](#love-woes)
 ----
 
 ## A little bit about me
@@ -65,7 +68,6 @@ level, and many more. It wouldn't be illogical to say that, at that point, it wa
 I've ever done. I also did some stuff in UE4, but I think that my Unity projects were significantly more
 impressive.
 
-[comment]: <> (TODO: pictures!)
 
 But I wanted to go deeper. I know... I'm already a demon. Heaven's not my kind of place, anyway ( get the reference?)
 
@@ -168,3 +170,162 @@ But, this is from the perspective of someone who prefers to do those things hims
 and it'll basically have 3 callback functions: init, update and draw. You don't need more than that! If you're interested,
 [recursor](https://www.youtube.com/watch?v=Jte9o4S6rlo) has an excellent tutorial series. Beware though, there were some changes
 to how the colors work (from 0.0 to 1.0 RGBA).
+
+### Love Woes
+![Alt text](love.gif?raw=True "medactionside")
+
+This is my first project with love2d, and most notably the only one that actually got anywhere, to be honest.
+
+In case the GIF isn't visible (quite possible I'm afraid; I don't know how to make proper gifs), there is
+a little player sprite, that collides with the box indicated by a red outline. It looks like it's pixel-perfect
+because of the collision model.
+
+I don't remember exactly when I started building this "Engine", but I do know why; My friends and I were
+thinking about making a small 2D side-scroll game during some vacation. Of course, as you can tell I was
+more enthusiastic about building the engine rather than the actual game, but at the very least it got me
+working on something. This is going to be a code review of sorts, where I'll go over some interesting things I
+discovered during this endeavor, maybe someone out there will appreciate it!
+
+#### Overview
+At that time, I was heavily utilizing OOP, to a degree that you could call: too extensive. I've since moved
+away from this type of programming, since it gets me into bad habits; mainly trying to "design" rather than
+do anything meaningful.
+
+Since I wanted some king of object-orientation and Lua by default doesn't support it (absolutely solid choice of
+a programming language on my part!), I started looking through tutorials. Fortunately, lua has a very powerful
+meta-programming model, and various implementations of class-like structures were plenty. So I chose the
+simplest one and went on creating base classes like:
+
+```lua
+local class = require("util.class")
+local Vector2 = class:derive("Vector2")
+
+function Vector2:new(x, y)
+	self.x = x or 0
+	self.y = y or 0
+end
+```
+
+along with a Box class
+
+```
+--[[
+    BoundingBox class
+ ]]
+-- local Tools = require("util.Tools")
+local class = require("util.class")
+local Box = class:derive("Box")
+local Vector2 = require("maths.Vector2")
+
+function Box:new(x, y, w, h)
+    self.w = w or 8
+    self.h = h or 8
+    self.x = x - w/2
+    self.y = y - h/2
+end
+
+function Box:Draw()
+    -- love.graphics.setColor(1,0,0,1)
+    love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+    -- love.graphics.setColor(1, 1, 1, 1)
+end
+```
+
+Of course, this is not in chronological order! I ended up adding functionality to all
+those base classes, when needed.
+
+#### Events
+I was initially talking about the very basic collision handling, but I had completely
+forgotten that I'd written so much code! The recursor tutorial that I referenced in the
+[love2d](#love) article actually included an event system for keyboard and gamepad handling!
+
+
+I won't talk much about it here though, since it's mainly code that I just followed along with.
+
+#### Scenes
+Now this is a big ol' chunk of code! Before even implementing basic movement or combat, or anything along
+the lines of an _actual_ game, I was wise and went on to scene management. I now see how this could have
+lead to this project being canned. Maybe I'll redo it at some point, with less useless code, hopefully.
+
+My idea of a scene was a pair of files, one having all the data needed for the scene to be run; audio, images,
+and the other one containing the *actual* code. Of course generic code like player movement would not be
+included.
+
+This was the major time-sink of the project. I tried using JSON files to specify the scene objects, spending
+all my precious "get excited" time to accomplish close to nothing. I also wanted to make a level-editor. Sigh.
+
+#### Collision
+
+For collision, I used
+[Minkowski Difference](https://en.wikipedia.org/wiki/Minkowski_addition),
+to move the object *back* if it has collided. If you've used Game Maker, this
+probably sounds backwards to you (I usually see people calculating the next position
+and then choosing to move by smaller increments).
+
+
+Here's the code that goes along with that:
+
+```lua
+
+function Box:MinowskiDiff(b)
+    assert(b:Is(Box), "Box:MinowskiDiff - Expected Box!")
+    local top_left = Vector2.Sub(self:UpLeft(), b:DownRight())
+    local newSize = Vector2.Add(self:Size(), b:Size())
+    local newLeft = Vector2.Add(top_left, newSize:Div(2))
+    return Box.CreateCentered(newLeft.x, newLeft.y, newSize.x, newSize.y)
+end
+
+function Box:ClosestPointOnBounds(point)
+    assert(point:Is(Vector2),"Box:ClosestPointOnBounds - Expected point to be a vector2!")
+    local minDist = math.abs(point.x - self.x)
+    local max = self:DownRight()
+    local bPoint = Vector2(self.x, point.y)
+
+    if math.abs(max.x - point.x) < minDist then
+        minDist = math.abs(max.x - point.x)
+        bPoint = Vector2(max.x, point.y)
+    end
+
+    --move to y axis
+    if math.abs(max.y - point.y) < minDist then
+        minDist = math.abs(max.y - point.y)
+        bPoint = Vector2(point.x, max.y)
+    end
+
+    if math.abs(self.y - point.y) < minDist then
+        minDist = math.abs(self.y - point.y)
+        bPoint = Vector2(point.x, self.y)
+    end
+    return bPoint
+end
+
+function Box.CreateCentered(x, y, w, h)
+    local b = Box(0,0,w,h)
+    b:SetCenter(x,y)
+    return b
+end
+
+```
+
+Then I just do an AABB collision test, and if it hits I move the player character
+back.
+
+#### Last but not the least stupid
+Of course, you can't have a game engine by an amateur (still am!) without premature optimization. So I looked up
+how to use sprite batches, and included that as well. Bravo Michael.
+
+#### Conclusion
+Some wise guy said failing is another step to achieving success, I think. Probably forged that from my mind, so
+don't try to read into it. I think that failing in my case had a certain requirement in order to become effective.
+That was failing to do *the important stuff*. I was desperately trying to work out Scene Management, event systems
+and all this pointless stuff; again they're probably very important, but not at the initial stage of development.
+
+Maybe it wouldn't matter if I just started writing the actual game code; but I'd have learnt a lot more about it, as
+well as be more excited when I revisited it today. This was my major pattern with writing engines; I'd focus too much
+on unimportant stuff, rather that writing the usage code.
+
+Failing and trying again is good, don't give up. But it's important to understand that failing at something and
+doing the exact same thing again, expecting to somehow get further, is probably not a good idea. It took me a lot of time
+to realise this.
+
+Thank you for reading this reaaally long post!
