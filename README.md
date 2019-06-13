@@ -1,5 +1,3 @@
-[comment]: <> (TODO: pictures!)
-[comment]: <> (TODO: Post - Love Woes (medactionside))
 [comment]: <> (TODO: Post - Red Plat (Construct 2))
 
 # My Personal Page
@@ -317,12 +315,12 @@ how to use sprite batches, and included that as well. Bravo Michael.
 #### Conclusion
 Some wise guy said failing is another step to achieving success, I think. Probably forged that from my mind, so
 don't try to read into it. I think that failing in my case had a certain requirement in order to become effective.
-That was failing to do *the important stuff*. I was desperately trying to work out Scene Management, event systems
+That was, failing to do *the important stuff*. I was desperately trying to work out Scene Management, event systems
 and all this pointless stuff; again they're probably very important, but not at the initial stage of development.
 
 Maybe it wouldn't matter if I just started writing the actual game code; but I'd have learnt a lot more about it, as
 well as be more excited when I revisited it today. This was my major pattern with writing engines; I'd focus too much
-on unimportant stuff, rather that writing the usage code.
+on unimportant stuff, rather that writing the code that I needed at that point in time.
 
 Failing and trying again is good, don't give up. But it's important to understand that failing at something and
 doing the exact same thing again, expecting to somehow get further, is probably not a good idea. It took me a lot of time
