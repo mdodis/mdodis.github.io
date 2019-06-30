@@ -7,6 +7,8 @@ And to talk about my experience with computers.
 Edit: This may serve a dual purpose as a blog. I'll be looking through some other projects (either
 unfinished or abandoned and I'll post them here over time).
 
+[I'm an inline-style link](./topic-red-black.md)
+
 ## Completed Projects
 
 | Name      |   Language    |   Description |
