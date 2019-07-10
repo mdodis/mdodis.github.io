@@ -1,7 +1,7 @@
 [comment]: <> (TODO: Post - Red Plat (Construct 2))
 
 # My Personal Page
-Hello! My name is Michael Dodis, and this is a short page for me to show off all my projects!
+Hello! My name is Michael Dodis, and this is a short page for me to showcase all my projects!
 And to talk about my experience with computers.
 
 Edit: This may serve a dual purpose as a blog. I'll be looking through some other projects (either
@@ -208,11 +208,12 @@ end
 
 along with a Box class
 
-```
+``` lua
 --[[
     BoundingBox class
- ]]
--- local Tools = require("util.Tools")
+ ]]--
+
+local Tools = require("util.Tools")
 local class = require("util.class")
 local Box = class:derive("Box")
 local Vector2 = require("maths.Vector2")
