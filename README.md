@@ -27,6 +27,7 @@ unfinished or abandoned and I'll post them here over time).
 * [Love2d](#love)
 * [Love2d woes](#love-woes)
 * [Red Plat](./topic-red-black.md)
+* [Open Solomon's Key](./topic-osk.md)
 ----
 
 ## A little bit about me
