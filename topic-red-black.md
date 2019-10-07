@@ -30,3 +30,4 @@ The process was certainly interesting. This was my first (ever!) collaborative w
 The basic movement controls were very easy. Couple that with the great built-in collision system and I had a platform character in no-time. Construct was really good with that; just add the platformer behavior and you're done. No manual collision detection/response (looking at you Game Maker), and it's functional at the very least.
 
 Surprisingly, the most tedious part was saving and loading controls, and this was the part I shouldn't have focused on. It's this weird chore you have to go through, mainly because... you guessed it! Browser only.
+![alt-text](topic-red-black.gif?raw=True)
