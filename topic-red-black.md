@@ -9,3 +9,8 @@ unless you've never seen a well written native one. But I think no matter what, 
 as the window manager of the OS is unacceptable.
 
 Anyways, let me try to stay relevant to the post, maybe I'll rant about the web at some other time.
+
+#### The Idea
+You are a girl in a post-nuclear world. You have a wrench as your only means of a defense. Not even a wrench could help you overpower the monstrous creations of this apocalyptic habitat, though. You'll have to switch between sneaking, running and engaging constantly in order to survive through each level.
+
+<!-- Open game in c2 and take some pics! -->
