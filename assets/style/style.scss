@@ -2,3 +2,15 @@
 ---
 
 @import "";
+
+.alpha {}
+.beta {}
+.charlie {}
+.delta {}
+
+//  Global SASS
+//  ------------------------------
+
+td tb body, html, .body {
+    background: burlywood !important;
+}
