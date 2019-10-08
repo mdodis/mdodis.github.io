@@ -40,6 +40,12 @@ h1 {
     margin: auto;
 }
 
+.PostImage {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
 /*  Desktop */
 @media only screen and (min-width: 992px) {
     /* constrain width on desktop */

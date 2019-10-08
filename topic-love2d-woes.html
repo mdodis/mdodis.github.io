@@ -1,13 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/agate.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
     <title>Love2D Woes</title>
 </head>
+
 <body>
-    
+
+    <div class="Post">
+        <h1>Love2d Woes</h1>
+
+        <img class="PostImage" src="/resources/topic-love2d-woes/love.gif" alt="love2d aabb minkowski-based collision">
+
+        <p>
+            This is my first project with love2d, and most notably the only one that actually got anywhere, to be
+            honest.
+
+        </p>
+
+        <p>
+
+            In case the GIF isn't visible (quite possible I'm afraid; I don't know how to make proper gifs), there is
+            a little player sprite, that collides with the box indicated by a red outline. It looks like it's
+            pixel-perfect
+            because of the collision model.
+
+        </p>
+
+        <p>
+            I don't remember exactly when I started building this "Engine", but I do know why; My friends and I were
+            thinking about making a small 2D side-scroll game during some vacation. Of course, as you can tell I was
+            more enthusiastic about building the engine rather than the actual game, but at the very least it got me
+            working on something. This is going to be a code review of sorts, where I'll go over some interesting things
+            I
+            discovered during this endeavor, maybe someone out there will appreciate it!
+
+        </p>
+
+
+        <h2>Overview</h2>
+
+        <p>
+            At that time, I was heavily utilizing OOP, to a degree that you could call: too extensive. I've since moved
+            away from this type of programming, since it gets me into bad habits; mainly trying to "design" rather than
+            do anything meaningful.
+
+        </p>
+
+        <p>
+            Since I wanted some king of object-orientation and Lua by default doesn't support it (absolutely solid
+            choice of
+            a programming language on my part!), I started looking through tutorials. Fortunately, lua has a very
+            powerful
+            meta-programming model, and various implementations of class-like structures were plenty. So I chose the
+            simplest one and went on creating base classes like:
+
+        </p>
+
+        <pre><code class="lua" >
+local class = require("util.class")
+local Vector2 = class:derive("Vector2")
+
+function Vector2:new(x, y)
+    self.x = x or 0
+    self.y = y or 0
+end
+        </code></pre>
+
+        <p>along with a Box class</p>
+
+        <pre><code>
+local Tools = require("util.Tools")
+local class = require("util.class")
+local Box = class:derive("Box")
+local Vector2 = require("maths.Vector2")
+
+function Box:new(x, y, w, h)
+    self.w = w or 8
+    self.h = h or 8
+    self.x = x - w/2
+    self.y = y - h/2
+end
+
+function Box:Draw()
+    -- love.graphics.setColor(1,0,0,1)
+    love.graphics.rectangle('line', self.x, self.y, self.w, self.h)
+    -- love.graphics.setColor(1, 1, 1, 1)
+end
+        </code></pre>
+
+        <p>
+            Of course, this is not in chronological order! I ended up adding functionality to all
+            those base classes, when needed.
+
+        </p>
+
+        <h2>Events</h2>
+
+        <p>
+            I was initially talking about the very basic collision handling, but I had completely
+            forgotten that I'd written so much code! The recursor tutorial that I referenced in the
+            [love2d](#love) article actually included an event system for keyboard and gamepad handling!
+
+        </p>
+
+        <p>
+            I won't talk much about it here though, since it's mainly code that I just followed along with.
+
+        </p>
+
+        <h2>Scenes</h2>
+        <p>
+            Now this is a big ol' chunk of code! Before even implementing basic movement or combat, or anything along
+            the lines of an _actual_ game, I was wise and went on to scene management. I now see how this could have
+            lead to this project being canned. Maybe I'll redo it at some point, with less useless code, hopefully.
+
+        </p>
+
+        <p>
+            My idea of a scene was a pair of files, one having all the data needed for the scene to be run; audio,
+            images,
+            and the other one containing the *actual* code. Of course generic code like player movement would not be
+            included.
+
+        </p>
+
+        <p>
+            This was the major time-sink of the project. I tried using JSON files to specify the scene objects, spending
+            all my precious "get excited" time to accomplish close to nothing. I also wanted to make a level-editor.
+            Sigh.
+
+        </p>
+
+        <h2>Collision</h2>
+
+
+        <p>
+            For collision, I used
+            [Minkowski Difference](https://en.wikipedia.org/wiki/Minkowski_addition),
+            to move the object *back* if it has collided. If you've used Game Maker, this
+            probably sounds backwards to you (I usually see people calculating the next position
+            and then choosing to move by smaller increments).
+
+
+            Here's the code that goes along with that:
+
+        </p>
+
+        <pre><code class="lua">
+function Box:MinowskiDiff(b)
+    assert(b:Is(Box), "Box:MinowskiDiff - Expected Box!")
+    local top_left = Vector2.Sub(self:UpLeft(), b:DownRight())
+    local newSize = Vector2.Add(self:Size(), b:Size())
+    local newLeft = Vector2.Add(top_left, newSize:Div(2))
+    return Box.CreateCentered(newLeft.x, newLeft.y, newSize.x, newSize.y)
+end
+
+function Box:ClosestPointOnBounds(point)
+    assert(point:Is(Vector2),"Box:ClosestPointOnBounds - Expected point to be a vector2!")
+    local minDist = math.abs(point.x - self.x)
+    local max = self:DownRight()
+    local bPoint = Vector2(self.x, point.y)
+
+    if math.abs(max.x - point.x) < minDist then
+        minDist = math.abs(max.x - point.x)
+        bPoint = Vector2(max.x, point.y)
+    end
+
+    if math.abs(max.y - point.y) < minDist then
+        minDist = math.abs(max.y - point.y)
+        bPoint = Vector2(point.x, max.y)
+    end
+
+    if math.abs(self.y - point.y) < minDist then
+        minDist = math.abs(self.y - point.y)
+        bPoint = Vector2(point.x, self.y)
+    end
+    return bPoint
+end
+
+function Box.CreateCentered(x, y, w, h)
+    local b = Box(0,0,w,h)
+    b:SetCenter(x,y)
+    return b
+end 
+        </code></pre>
+
+
+        <p>
+            Then I just do an AABB collision test, and if it hits I move the player character
+            back.
+
+        </p>
+
+        <h2> Last but not the least stupid</h2>
+        <p>
+            Of course, you can't have a game engine by an amateur (still am!) without premature optimization. So I
+            looked up
+            how to use sprite batches, and included that as well. Bravo Michael.
+
+        </p>
+
+        <h4>Conclusion</h4>
+        <p>
+            Some wise guy said failing is another step to achieving success, I think. Probably forged that from my mind,
+            so
+            don't try to read into it. I think that failing in my case had a certain requirement in order to become
+            effective.
+            That was, failing to do *the important stuff*. I was desperately trying to work out Scene Management, event
+            systems
+            and all this pointless stuff; again they're probably very important, but not at the initial stage of
+            development.
+
+        </p>
+
+        <p>
+            Maybe it wouldn't matter if I just started writing the actual game code; but I'd have learnt a lot more
+            about it, as
+            well as be more excited when I revisited it today. This was my major pattern with writing engines; I'd focus
+            too much
+            on unimportant stuff, rather that writing the code that I needed at that point in time.
+
+        </p>
+
+        <p>
+            Failing and trying again is good, don't give up. But it's important to understand that failing at something
+            and
+            doing the exact same thing again, expecting to somehow get further, is probably not a good idea. It took me
+            a lot of time
+            to realise this.
+
+
+            Thank you for reading this reaaally long post!
+
+        </p>
+
+
+    </div>
+
 </body>
+
 </html>
