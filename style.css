@@ -43,10 +43,9 @@ h1 {
     margin: auto;
 }
 
-.PostImage {
-    display: block;
-    margin: 0 auto;
-    width: 50%;
+.Post img {
+    margin: auto;
+    max-width: 100%;
 }
 
 /*  Desktop */
