@@ -58,8 +58,9 @@ h1 {
 
 .ImageLink {
     max-width: 3em;
-    min-width: 2em;
-    width: auto;
+    min-width: 3em;
+    max-height: 3em;
+    min-height: 3em;
     margin: auto 1em;
     /* padding: 0 1em; */
     background-size: cover;
