@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>mdodis.github.io</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <script type="text/javascript" src="index.js"></script>
     </style>
 
 </head>
@@ -89,15 +90,16 @@
 
         <h2>Posts</h2>
         <!-- TODO: setup something a bit more advanced -->
-        <ul>
-            <li><a href="/topic-love2d.html">On Love2d</a></li>
-            <li><a href="/topic-love2d-woes.html">Love2d Woes</a></li>
-            <li><a href="/topic-red-black.html">Red Black</a></li>
-            <li><a href="/topic-osk.html">Open Solomon's Key</a></li>
-            <li><a href="/topic-viat.html">Something 3D</a></li>
-        </ul>
-
-
+        <div id = "listContainer">
+            <input type="text" id="postSearchInput" onkeyup="filterPosts()" placeholder="Filter">
+            <ul class="FilterList" id="postList">
+                <li><a href="/topic-love2d.html">On Love2d</a></li>
+                <li><a href="/topic-love2d-woes.html">Love2d Woes</a></li>
+                <li><a href="/topic-red-black.html">Red Black</a></li>
+                <li><a href="/topic-osk.html">Open Solomon's Key</a></li>
+                <li><a href="/topic-viat.html">Something 3D</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="Post">
