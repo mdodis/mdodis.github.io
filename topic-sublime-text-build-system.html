@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/style.css">
+    <title>Sublime Text Build System for C/C++ </title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/agate.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+
+    <h1>Sublime Text Build System for C/C++ </h1>
+
+    <div class="Post">
+
+        <p>
+            I've recently switched to Sublime Text 3 for my C/C++ programming. It's <i>really</i> fast, efficient and doesn't
+            take up a lot of memory, but some stuff that modern editors support out of the box isn't there,
+            like build system support for navigating through the error list. I'll keep updating this as I find solutions for other compilers.
+        </p>
+
+        <h2>Build System</h2>
+        <p>
+            A sublime-project looks something like this:
+            <pre> <code class="json">
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "file_exclude_patterns": ["*.exe", "*.exp", "*.tmp", "*.ilk", "*.pdb", "*.rdbg"],
+            "folder_exclude_patterns": ["build"],
+        }
+    ],
+
+    "settings": {
+        "tab_size": 4
+    },
+
+    "build_systems": [
+        {
+            "name": "Build",
+            "shell_cmd": "call build.bat",
+            "working_dir": "${project_path}",
+            "file_regex": "^((?:\\w\\:)?[^\\:\\n]+)\\((\\d+)\\)\\: (?:error|warning) \\w\\d+: ()([^\\n]+)$",
+            "syntax": "MSVC+Build.sublime-syntax"
+        },
+
+        {
+            "name": "Run",
+            "shell_cmd": "build\\the_program.exe",
+            "working_dir": "${project_path}",
+        }
+    ]
+
+}
+            </code> </pre>
+
+        From this sample, it should be pretty obvious how one can specify additional settings like identation.
+        The line with: <pre><code class="json">"syntax": "MSVC+Build.sublime-syntax"</code></pre> is used to highlight the
+        build output. You can find it <a href="http://www.siltutorials.com/sublime-text-build-tool-tutorial">here</a>.
+        </p>
+
+        <h2>Windows Regex</h2>
+        <p>
+            So here's the regex for msvc:
+            <pre><code class="json">"file_regex": "^((?:\\w\\:)?[^\\:\\n]+)\\((\\d+)\\)\\: (?:error|warning) \\w\\d+: ()([^\\n]+)$"</code></pre>
+            It's not 100% complete; for example, it cannot parse any errors from templates.
+        </p>
+
+        <h2>Conclusion</h2>
+        <p>
+            There's a certain convenience aspect when it comes to building through the editor. Integration, comfort, not having to switch to a
+            terminal everytime to parse the output of the build.
+        </p>
+
+
+        <h2>References</h4>
+        <ul>
+            <li><a href="http://www.siltutorials.com/sublime-text-build-tool-tutorial"> Sublime Text Build Tool Tutorial (siltutorials)</a></li>
+            <li><a href="https://www.sublimetext.com/docs/3/projects.html">Sublime Text 3 Project Format</a></li>
+            <li><a href="https://www.sublimetext.com/docs/3/build_systems.html">Sublime Text 3 Build Systems</a></li>
+        </ul>
+
+    </div>
+
+</body>
+
+</html>
