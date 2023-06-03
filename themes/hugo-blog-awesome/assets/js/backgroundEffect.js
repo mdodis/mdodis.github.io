@@ -117,6 +117,7 @@ void main() {
     vec3 shaded = ray_march(ro, rd);
 
 
+    shaded = clamp(shaded, 0.0, 1.0);
     fragColor = vec4(shaded, 1.0);
 }
 `;
