@@ -77,3 +77,13 @@ $on-widescreen: 1152px;
 @import "miscellaneous";
 @import "dark";
 @import "listpage";
+
+#bg-canvas {
+    // border: 1px solid red;
+    position: absolute;
+    z-index: -2;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+
+}
