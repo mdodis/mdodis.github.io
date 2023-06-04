@@ -137,12 +137,12 @@ function _render(now) {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    init();
     render();
-    requestAnimationFrame(_render);
+    requestAnimationFrame(_render, canvas);
 }
 
 function init() {
+    console.log('init');
     const vertexShader = load_shader(gl.VERTEX_SHADER, vsSource);
     const fragShader = load_shader(gl.FRAGMENT_SHADER, fsSource);
 
@@ -273,7 +273,9 @@ function main() {
     document.addEventListener("mousemove", (event) => {
         mousePos = getMousePos(canvas, event);
     });
+    init();
 
     requestAnimationFrame(_render);
 }
-main();
+
+setTimeout(main, 1000);
