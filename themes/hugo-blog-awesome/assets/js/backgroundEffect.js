@@ -11,6 +11,8 @@ precision mediump float;
 uniform vec2 uResolution;
 uniform vec2 uMouse;
 uniform float uTime;
+uniform float uBlobOffset;
+uniform int uNumBlobs;
 out vec4 fragColor;
 
 vec2 mouseNow = vec2(0.0, 0.0);
@@ -36,6 +38,10 @@ float box_frame(vec3 p, vec3 c, vec3 b, float e )
         length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
 }
 
+float opU(float i, float c) {
+    return min(i, c);
+}
+
 float map(vec3 p) {
     float sp = sphere(p, vec3(0.0, 0.0, 0.0), 1.0 + sin(uTime) * 0.1);
     float b = box_frame(p, vec3(0.0, 0.0, 0.0), vec3(0.5), 0.055);
@@ -44,11 +50,16 @@ float map(vec3 p) {
     float t = cos(uTime) * 0.5 + 0.5 * mouseNow.x;
     float t2 = sin(uTime) * 0.5 + 0.5 * mouseNow.y;
     float displacement = sin(3.0 * p.x * t) * sin(7.0 * p.y) * sin(5.0 * p.z * t2) * 0.25;
-    
-    // float d2 = displacement * sphere(p, vec3(-mouseNow.x, mouseNow.y, 0.0), 1.0);
+    scene += displacement;
 
-    return scene + displacement;
-    // return cone;
+    for (int i = 0; i < uNumBlobs; i++) {
+        float us = sin(uTime + float(i) * cos(uTime * 0.2)) * 1.5 * (1.0 - uBlobOffset);
+        float uc = cos(uTime + float(i) * cos(uTime * 0.2)) * 1.5 * (1.0 - uBlobOffset);
+        float x = us;
+        float y = uc;
+        scene = opU(sphere(p, vec3(x, y, 0.0), 0.1), scene);
+    }
+    return scene;
 }
 
 vec3 calculate_normal(in vec3 p)
@@ -110,7 +121,7 @@ void main() {
     vec2 p = (2.0*gl_FragCoord.xy-uResolution.xy)/uResolution.y;
     mouseNow = (2.0 * uMouse.xy - uResolution.xy) / uResolution.y;
     
-    vec3 cp = vec3(0, 0, -2.0);
+    vec3 cp = vec3(0.0, 0.0, -2.0);
     vec3 ro = cp;
     vec3 rd = vec3(p, 1.0);
     
@@ -130,6 +141,8 @@ let positionBuffer = null;
 let program = null;
 let canvas = null;
 let mousePos = [0, 0];
+let nBlobs = 0;
+let blobsOffset = 0.0;
 
 function _render(now) {
     deltaTime = (now - then) * 0.001;
@@ -139,6 +152,21 @@ function _render(now) {
 
     render();
     requestAnimationFrame(_render, canvas);
+}
+
+function easeOutBounce(x) {
+    const n1 = 7.5625;
+    const d1 = 2.75;
+
+    if (x < 1 / d1) {
+        return n1 * x * x;
+    } else if (x < 2 / d1) {
+        return n1 * (x -= 1.5 / d1) * x + 0.75;
+    } else if (x < 2.5 / d1) {
+        return n1 * (x -= 2.25 / d1) * x + 0.9375;
+    } else {
+        return n1 * (x -= 2.625 / d1) * x + 0.984375;
+    }
 }
 
 function init() {
@@ -169,6 +197,8 @@ function init() {
             resolution: gl.getUniformLocation(program, 'uResolution'),
             time: gl.getUniformLocation(program, 'uTime'),
             mouse: gl.getUniformLocation(program, 'uMouse'),
+            blobOffset: gl.getUniformLocation(program, 'uBlobOffset'),
+            nBlobs: gl.getUniformLocation(program, 'uNumBlobs'),
         },
     };
 
@@ -195,7 +225,16 @@ function getMousePos(c, evt) {
     };
 }
 
+function lerp(start, end, amt) {
+    return (1 - amt) * start + amt * end
+}
+
+const clamp = (num, min, max) => {
+    return Math.min(Math.max(num, min), max);
+}
+
 let t = 0.0;
+let lastBlobs = 0;
 function render() {
 
     const s = (Math.sin(t) + 1.0) / 2.0;
@@ -214,6 +253,20 @@ function render() {
     gl.uniform2f(programInfo.uniformLocations.resolution, gl.canvas.width, gl.canvas.height);
     gl.uniform1f(programInfo.uniformLocations.time, t);
     gl.uniform2f(programInfo.uniformLocations.mouse, mousePos.x, mousePos.y);
+    gl.uniform1i(programInfo.uniformLocations.nBlobs, nBlobs);
+
+    if (nBlobs != lastBlobs) {
+        blobsOffset = lerp(blobsOffset, 1.0, 0.1);
+
+        if (blobsOffset > 0.90) {
+            lastBlobs = nBlobs;
+        }
+    } else {
+        blobsOffset = lerp(blobsOffset, 0.0, 0.05);
+    }
+
+    blobsOffset = clamp(blobsOffset, 0.0, 1.0);
+    gl.uniform1f(programInfo.uniformLocations.blobOffset, blobsOffset);
 
     {
         const offset = 0;
@@ -261,6 +314,13 @@ function setPositionAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 }
 
+function addBlobs() {
+    nBlobs += 1;
+    if (nBlobs > 15) {
+        nBlobs = 0;
+    }
+}
+
 function main() {
     canvas = document.getElementById('bg-canvas');
     gl = canvas.getContext('webgl2', { premultipliedAlpha: false });
@@ -272,6 +332,10 @@ function main() {
 
     document.addEventListener("mousemove", (event) => {
         mousePos = getMousePos(canvas, event);
+    });
+
+    document.addEventListener("mouseup", (event) => {
+        addBlobs();
     });
     init();
 
