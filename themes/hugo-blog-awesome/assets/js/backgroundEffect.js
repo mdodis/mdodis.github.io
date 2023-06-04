@@ -93,7 +93,7 @@ vec3 ray_march(vec3 ro, vec3 rd) {
             vec3 diffuse = mc * diffuse_intensity;
             vec3 refl = normalize(reflect(rd, normal));
             vec3 specular = vec3(pow(max(0.0, dot(refl, direction_to_light)), 64.0));
-            return (diffuse + specular * 0.1);
+            return (diffuse);
         }
 
         if (total_distance_traveled > MAXIMUM_TRACE_DISTANCE) {
