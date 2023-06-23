@@ -38,6 +38,6 @@ I don't exactly remember when, but at some point, everything started "clicking".
 
 Of course, this is not the whole story, I had run-ins with many different development tools; besides Unity, there was also Construct 2. Construct 2 has a special place in my lifetime; So I'll be posting about it from time to time.
 
-After some time, working with C++ and OpenGL, attempting to create a "Game Engine" (if you could even say that), I messed around with several other stuff. Not just in C++! There was also [love](#love).
+After some time, working with C++ and OpenGL, attempting to create a "Game Engine" (if you could even say that), I messed around with several other stuff. Not just in C++! There was also [love](https://love2d.org/).
 
 Now, I'm working on several stuff, whenever I have the time, so expect more posts on... eh, I don't know, whenever I feel like I need to say something significant. Blog entries will be more specific on topics in terms of my experiences, so watch out for them! I mean, if you want to; I don't know why I even started writing this page. I'd delete it, but... It took some time to write all of those words, so I guess I'll keep it.
