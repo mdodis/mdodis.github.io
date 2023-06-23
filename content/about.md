@@ -17,4 +17,4 @@ This isn't completely indicative of what I like to do and read about, but it enc
 
 ## What's this about?
 
-This serves as both my personal page, as well as my blob on which I'll probably post *really* random stuff about programming. I started getting into programming from quite an early age, so there's a lot of stuff to be decompressed here, but I also like to post about my ongoing projects.
+This serves as both my personal page, as well as my blog on which I'll probably post *really* random stuff about programming. I started getting into programming from quite an early age, so there's a lot of stuff to be decompressed here, but I also like to post about my ongoing projects.
