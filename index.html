@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<style>
+    :root {
+        --falu-red: #721817ff;
+        --sandy-brown: #fa9f42ff;
+        --indigo-dye: #2b4162ff;
+        --dartmouth-green: #0b6e4fff;
+        --platinum: #e0e0e2ff;
+
+        --k-background1: var(--platinum);
+        --k-background2: var(--sandy-brown);
+
+        --k-min-section-height: 450px;
+        --k-triangle-size: 32px;
+        --k-triangle-border-size: 35px;
+
+        --k-border-1-grad: linear-gradient(90deg,
+                                           rgba(42, 123, 155, 1) 0%,
+                                           rgba(87, 199, 133, 1) 50%,
+                                           rgba(237, 221, 83, 1) 100%);
+    }
+
+    html {
+        font-family: sans-serif;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .msec {
+        display: flex;
+        min-height: var(--k-min-section-height);
+        justify-content: center;
+        position: relative;
+    }
+
+    .msec-bg1 {
+        background-color: var(--k-background1);
+    }
+
+
+    .mouse-track {
+    }
+
+    .msec-border1 {
+        position: absolute;
+        bottom: -2px;
+        right: 0px;
+        height: 2px;
+        width: 100%;
+        box-shadow: 0px 0 20px 0 black;
+        /*transition: background-position 0.02s ease-in;*/
+    }
+
+    .msec-border2 {
+        position: absolute;
+        top: -2px;
+        right: 0px;
+        height: 2px;
+        width: 100%;
+        box-shadow: inset 20px  black;
+        /*transition: background-position 0.02s ease-in;*/
+    }
+
+    .msec-bg2 {
+        background-color: var(--k-background2);
+    }
+
+    .msec-content {
+        margin: 0px 8px 8px 24px;
+    }
+
+    .left-triangle {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        top: 0%;
+        left: 0%;
+        border-style: solid;
+        border-width: var(--k-triangle-size) var(--k-triangle-size) 0 0;
+        border-color: var(--k-background2) transparent transparent transparent ;
+        transform: rotate(0deg);
+    }
+
+    .right-triangle {
+        position: absolute;
+        box-shadow: 10px 10px 0px 0px black;
+        width: 0px;
+        height: 0px;
+        bottom: 0%;
+        right: 0%;
+        border-style: solid;
+        border-width: 0 0 var(--k-triangle-size) var(--k-triangle-size);
+        border-color: transparent transparent var(--k-background2) transparent;
+        /*border-color: transparent transparent red transparent;*/
+        transform: rotate(0deg);
+    }
+
+    #csec {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Michael Dodis</title>
+</head>
+<body>
+    <div id="csec">
+
+        <!-- 
+            Landing Section
+        -->
+        <div class="msec msec-bg1" id="about">
+            <div class="msec-border1 mouse-track"></div>
+            <div class="right-triangle"></div>
+            <div class="msec-content">
+               <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+        <!-- 
+            2nd Section
+        -->
+        <div class="msec msec-bg2" id="sec2">
+            <div class="msec-content">
+               <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+        <!-- 
+            3rd Section
+        -->
+        <div class="msec msec-bg1" id="sec3">
+            <div class="msec-border2 mouse-track"></div>
+            <div class="left-triangle"></div>
+            <div class="msec-content">
+               <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+    };
+</script>
+</html>
