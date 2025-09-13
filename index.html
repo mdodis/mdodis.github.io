@@ -29,19 +29,43 @@
         margin: 0px;
     }
 
+    .animate.pop {
+      animation-duration: 0.5s;
+      animation-name: animate-pop;
+      animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
+    }
+
+    @keyframes animate-pop {
+        0% {
+            opacity: 0;
+            transform: scale(0.5, 0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1, 1);
+        }
+    }
+
+    .delay-1 { animation-delay: 0.6s; }  
+    .delay-2 { animation-delay: 0.7s; }
+    .delay-3 { animation-delay: 0.8s; }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        .animate { animation: none !important; }
+    }
+
     .msec {
         display: flex;
         min-height: var(--k-min-section-height);
-        justify-content: center;
+        /*justify-content: center;*/
+        align-items: center;
+        flex-direction: column;
         position: relative;
     }
 
     .msec-bg1 {
         background-color: var(--k-background1);
-    }
-
-
-    .mouse-track {
     }
 
     .msec-border1 {
@@ -103,6 +127,52 @@
         flex-direction: column;
         flex-grow: 1;
     }
+
+    #profile {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        background-color: grey;
+    }
+
+    #landing {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 100px;
+        padding-bottom: 300px;
+        background-color: rgba(50, 50, 50, 1.0);
+    }
+
+    .navbutton {
+        background-color: transparent;
+        color: white;
+        font-size: 1em;
+        border: 0px solid transparent;
+        border-radius: 10%;
+    }
+
+    .navbutton:hover {
+        background-color: red;
+    }
+
+    #menu {
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        background-color: #2b4162aa;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        min-height: 40px;
+
+        transition: background-color 0.2s ease-in;
+    }
+
+    #menu:hover {
+        background-color: #2b4162ff;
+    }
 </style>
 <head>
     <meta charset="utf-8">
@@ -110,16 +180,31 @@
     <title>Michael Dodis</title>
 </head>
 <body>
+    <nav id="menu">
+        <button class="navbutton">Home</button>
+        <button class="navbutton">About</button>
+        <button class="navbutton">Work</button>
+        <button class="navbutton">Projects</button>
+    </nav>
+            
     <div id="csec">
 
         <!-- 
             Landing Section
         -->
+        <div id="landing">
+            <div id="profile">
+               
+            </div> 
+        </div>
+
+
         <div class="msec msec-bg1" id="about">
-            <div class="msec-border1 mouse-track"></div>
+            <div class="msec-border1"></div>
             <div class="right-triangle"></div>
+
             <div class="msec-content">
-               <p>
+                <p>
                    Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
                </p>
             </div>
@@ -128,7 +213,7 @@
         <!-- 
             2nd Section
         -->
-        <div class="msec msec-bg2" id="sec2">
+        <div class="msec msec-bg2" id="work">
             <div class="msec-content">
                <p>
                    Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
@@ -139,8 +224,8 @@
         <!-- 
             3rd Section
         -->
-        <div class="msec msec-bg1" id="sec3">
-            <div class="msec-border2 mouse-track"></div>
+        <div class="msec msec-bg1" id="projects">
+            <div class="msec-border2"></div>
             <div class="left-triangle"></div>
             <div class="msec-content">
                <p>
