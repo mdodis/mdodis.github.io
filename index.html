@@ -1,326 +1,704 @@
 <!DOCTYPE html>
-<html>
-<style>
-    :root {
-        --falu-red: #721817ff;
-        --sandy-brown: #fa9f42ff;
-        --indigo-dye: #2b4162ff;
-        --dartmouth-green: #0b6e4fff;
-        --platinum: #e0e0e2ff;
-
-        --k-background1: var(--platinum);
-        --k-background2: var(--sandy-brown);
-
-        --k-min-section-height: 450px;
-        --k-triangle-size: 32px;
-        --k-triangle-border-size: 35px;
-
-        --k-border-1-grad: linear-gradient(90deg,
-                                           rgba(42, 123, 155, 1) 0%,
-                                           rgba(87, 199, 133, 1) 50%,
-                                           rgba(237, 221, 83, 1) 100%);
-    }
-
-    html {
-        font-family: sans-serif;
-    }
-
-    body {
-        margin: 0px;
-    }
-
-
-    .animate.pop {
-        animation-duration: 0.5s;
-        animation-name: animate-pop;
-        animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
-    }
-
-    .animate-forward {
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes animate-pop {
-        0% {
-            opacity: 0;
-            transform: scale(0.5, 0.5);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1, 1);
-        }
-    }
-
-    .delay-1 { animation-delay: 0.6s; }  
-    .delay-2 { animation-delay: 0.7s; }
-    .delay-3 { animation-delay: 0.8s; }
-    .delay-9 { animation-delay: 1.8s; }
-
-    @media screen and (prefers-reduced-motion: reduce) {
-        .animate { animation: none !important; }
-    }
-
-    .msec {
-        display: flex;
-        min-height: var(--k-min-section-height);
-        /*justify-content: center;*/
-        align-items: center;
-        flex-direction: column;
-        position: relative;
-    }
-
-    .msec-bg1 {
-        background-color: var(--k-background1);
-    }
-
-    .msec-border1 {
-        position: absolute;
-        bottom: -2px;
-        right: 0px;
-        height: 2px;
-        width: 100%;
-        box-shadow: 0px 0 20px 0 black;
-        /*transition: background-position 0.02s ease-in;*/
-    }
-
-    .msec-border2 {
-        position: absolute;
-        top: -2px;
-        right: 0px;
-        height: 2px;
-        width: 100%;
-        box-shadow: inset 20px  black;
-        /*transition: background-position 0.02s ease-in;*/
-    }
-
-    .msec-bg2 {
-        background-color: var(--k-background2);
-    }
-
-    .msec-content {
-        margin: 0px 8px 8px 24px;
-    }
-
-    .left-triangle {
-        position: absolute;
-        width: 0px;
-        height: 0px;
-        top: 0%;
-        left: 0%;
-        border-style: solid;
-        border-width: var(--k-triangle-size) var(--k-triangle-size) 0 0;
-        border-color: var(--k-background2) transparent transparent transparent ;
-        transform: rotate(0deg);
-    }
-
-    .right-triangle {
-        position: absolute;
-        box-shadow: 10px 10px 0px 0px black;
-        width: 0px;
-        height: 0px;
-        bottom: 0%;
-        right: 0%;
-        border-style: solid;
-        border-width: 0 0 var(--k-triangle-size) var(--k-triangle-size);
-        border-color: transparent transparent var(--k-background2) transparent;
-        /*border-color: transparent transparent red transparent;*/
-        transform: rotate(0deg);
-    }
-
-    #csec {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    #profile {
-        width: 200px;
-        height: 200px;
-        /*border: 2px solid black;*/
-        box-shadow: 0px 0 8px 0 black;
-        border-radius: 50%;
-        background-color: grey;
-        margin: 8px;
-        margin-right: 16px;
-    }
-
-    #landing {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding-top: 100px;
-        padding-bottom: 300px;
-        background-color: rgba(50, 50, 50, 1.0);
-    }
-
-    .navbutton {
-        background-color: transparent;
-        color: white;
-        font-size: 1em;
-        border: 0px solid transparent;
-        min-width: 80px;
-        transition: box-shadow .2s ease-in-out;
-    }
-
-    .navbutton:hover {
-        box-shadow: 0 2px 0 0 whitesmoke; /* Border bottom */
-    }
-
-    .hello {
-        display: flex;
-        justify-content: center;
-        opacity: 0;
-    }
-
-    @media screen and (prefers-reduced-motion: reduce) {
-        .animate { animation: none !important; }
-    }
-    .profile-card {
-        display: flex;
-        justify-content: center;
-        background-color: var(--platinum);
-        border-radius: 18px;
-        border: 0 solid transparent;
-        padding: 16px;
-        box-shadow: 0px 0 20px 0 black;
-        font-size: 1o em;
-         
-    }
-
-    .grow {
-        transition: all .2s ease-in-out;
-    }
-
-    .grow:hover {
-        transform: scale(1.2);
-    }
-
-    .profile-card:hover {
-        transform: scale(1.2, 1.2);
-    }
-
-    .profile-card-details {
-        display: flex;
-        margin-left: 20px;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 8px;
-    }
-
-    .text-bold {
-        font-weight: bold;
-    }
-
-    .cardp {
-        margin: 0;
-        padding: 0;
-        font-size: 1em;
-    }
-
-    #menu {
-        position: fixed;
-        z-index: 100;
-        width: 100%;
-        background-color: #050505a4;
-        backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        min-height: 60px;
-
-        transition: background-color 0.2s ease-in;
-    }
-
-    .spacer {
-        flex-grow: 100;
-        flex-shrink: 100;
-    }
-
-    #menu:hover {
-        background-color: #050505bf;
-    }
-</style>
+<html class="no-js ss-preload" lang="en">
 <head>
+
+    <!--- basic page needs
+    ================================================== -->
     <meta charset="utf-8">
+    <title>Michael Dodis - Portfolio</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Michael Dodis</title>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
 </head>
-<body>
-    <nav id="menu">
-        <button class="navbutton">Home</button>
-        <button class="navbutton">About</button>
-        <button class="navbutton">Work</button>
-        <button class="navbutton">Projects</button>
-    </nav>
+
+<body id="top">
+
+
+    <!-- # preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+        </div>
+    </div>
+
+
+    <!-- # page wrap
+    ================================================== -->
+    <div class="s-pagewrap">
+
+        <div class="circles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+        <!-- ## site header 
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="header-mobile">
+                <span class="mobile-home-link"><a href="index.html">Home</a></span>
+                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+            </div>
+
+            <div class="row wide main-nav-wrap">
+                <nav class="column lg-12 main-nav">
+                    <ul>
+                        <li><a href="index.html" class="home-link">Home</a></li>
+                        <li class="current"><a href="#intro" class="smoothscroll">Intro</a></li>
+                        <li><a href="#about" class="smoothscroll">About</a></li>
+                        <li><a href="#works" class="smoothscroll">Works</a></li>
+                        <li><a href="#contact" class="smoothscroll">Say Hello</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </header> <!-- end s-header -->
+
+
+        <!-- ## main content
+        ==================================================- -->
+        <main class="s-content">
+
+
+            <!-- ### intro
+            ================================================== -->
+            <section id="intro" class="s-intro target-section">
+
+                <div class="row intro-content wide">
+
+                    <div class="column">
+                        <div class="text-pretitle with-line">
+                            Hello World
+                        </div>
+
+                        <h1 class="text-huge-title">
+                            I am Michael Dodis, <br>
+                            a software engineer <br>
+                            specialized in graphics <br> 
+                            based <br>
+                            in Switzerland.
+                        </h1>
+                    </div>
+
+                    <ul class="intro-social">
+                        <li><a href="https://github.com/mdodis">GitHub</a></li>
+                        <li><a href="https://x.com/mdodis_t">Twitter</a></li>
+                        <li><a href="https://mdodis.itch.io">itch.io</a></li>
+                    </ul>
+
+                </div> <!-- end intro content -->
+
+                <a href="#about" class="intro-scrolldown smoothscroll">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
+                </a>
+
+            </section> <!-- end s-intro -->
+
+
+            <!-- ### about
+            ================================================== -->
+            <section id="about" class="s-about target-section">
+
+
+                <div class="row about-info wide" data-animate-block>
+
+                    <div class="column lg-6 md-12 about-info__pic-block">
+                        <img src="images/about-photo.jpg" 
+                             srcset="images/about-photo.jpg 1x, images/about-photo@2x.jpg 2x" alt="" class="about-info__pic" data-animate-el>
+                    </div>
+
+                    <div class="column lg-6 md-12">
+                        <div class="about-info__text" >
+
+                            <h2 class="text-pretitle with-line" data-animate-el>
+                                About
+                            </h2>
+                            <p class="attention-getter" style="background-color: var(--color-gray-9); padding: 6px;" data-animate-el>
+                                I am Head of SDK at ORamaVR SA, a company whose objective is to make
+                                rapid advancements in XR Medical Training Development, via an SDK that allows for rapid prototyping.
+                                Using my low-level knowledge of performance, as well as experience in designing and implementing
+                                high performance software, my main task is advancing the company's SDK with newer or better features.
+                                In my free time I like to program Game Engines, write songs in a DAW, or cook something interesting.
+                            </p>
+                            <a href="#0" class="btn btn--medium u-fullwidth" data-animate-el>Download CV</a>
+
+                        </div>
+                    </div>
+                </div> <!-- about-info -->
+
+
+                <div class="row about-expertise" data-animate-block>
+                    <div class="column lg-12">
+
+                        <h2 class="text-pretitle" data-animate-el>Expertise</h2>
+
+                        <ul class="skills-list h1" data-animate-el>
+                            <li>Low Level code in C, C++</li>
+                            <li>High Level code in C#, Lua, Java</li>
+                            <li>Graphics Programming (OpenGL, Vulkan, DirectX)</li>
+                            <li>Unity Engine, Unreal Engine</li>
+                        </ul>
+
+                    </div>
+                </div> <!-- end about-expertise -->
+
+
+                <div class="row about-timelines" data-animate-block>
+
+                    <div class="column lg-6 tab-12">
+
+                        <h2 class="text-pretitle" data-animate-el>
+                            Experience
+                        </h2>
+
+                        <div class="timeline" data-animate-el>
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">ORamaVR SA</h3>
+                                    <h5 class="timeline__meta">Head of SDK</h5>
+                                    <p class="timeline__timeframe">September 2024 - Present</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>Management of SDK team, release schedule & milestones, technical direction in hybrid X-PBD & Rigidbody physics engine,
+                                    rope Physics Verlet Integration for standalone VR devices, CI/CD pipelines in Github Actions</p>
+                                </div>
+                            </div>
+    
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">ORamaVR SA</h4>
+                                    <h5 class="timeline__meta">Core SDK Developer</h5>
+                                    <p class="timeline__timeframe">March 2023 - September 2024</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>Core SDK features. Built a graph-based extensible visual scripting tool, as well as a state-based extensible multi-core playback system</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">ORamaVR SA</h4>
+                                    <h5 class="timeline__meta">Developer (Unity Engine)</h5>
+                                    <p class="timeline__timeframe">November 2022 - March 2023</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>Built a VR streaming solution w/ C++ driven DirectX Rendering Capture, Technical Lead in B2B & Commercial medical operation simulations</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">ORamaVR SA</h4>
+                                    <h5 class="timeline__meta">Core SDK Developer (Unreal Engine)</h5>
+                                    <p class="timeline__timeframe">February 2021 - November 2022</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>
+                                        Built a blueprint-driven story-boarding editor tool & extensions,
+                                        Fully custom networking solution for VR applications,
+                                        Flatscreen VR simulator: Allows full control of hands & body (movement) via a vim-like mode system,
+                                        Optimizations for a soft-body mesh incision system
+                                    </p>
+                                </div>
+                            </div>
+    
+                        </div> <!-- end timeline -->
+
+                    </div> <!-- end column -->
+
+                    <div class="column lg-6 tab-12">
+
+                        <h2 class="text-pretitle" data-animate-el>
+                            Education
+                        </h2>
+
+                        <div class="timeline" data-animate-el>
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">University of Crete</h3>
+                                    <h5 class="timeline__meta">Bachelor in Computer Science</h5>
+                                    <p class="timeline__timeframe">2023</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>
+                                        Basis of Computer Science (Algorithms, Dynamic Programming, Algebra)
+                                        RISC-V CPU Architecture,
+                                        Compiler Programming,
+                                        OOP and other language paradigms
+                                        UI/UX principles tested in web-based projects
+                                        Specialized in Graphics and low-level software (during employment)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">Undergraduate Scholarship</h3>
+                                    <h5 class="timeline__meta">ORamaVR SA</h5>
+                                    <p class="timeline__timeframe">2020</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>
+                                        XR Simulator prototype for rapid iteration in Unity Engine,
+                                        Netcode contributions for a EU funded research project,
+                                        Developed various user-level features for VR applications,
+                                        Implemented custom Bezier Spline editor tool for Unity Engine, as part of a freeform exercise in learning the company's SDK
+                                    </p>
+                                </div>
+                            </div>
+    
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">School of Cool Designers</h4>
+                                    <h5 class="timeline__meta">B.A. Degree in Graphic Design</h5>
+                                    <p class="timeline__timeframe">August 2012</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
+                                </div>
+                            </div>
+    
+                        </div> <!-- end timeline -->
+                        
+                    </div> <!-- end column -->
+
+
+                </div> <!-- end about-timelines -->
+
+            </section> <!-- end s-about -->
+
+
+            <!-- ### works
+            ================================================== -->
+            <section id="works" class="s-works target-section">
+
+
+                <div class="row works-portfolio">
+
+                    <div class="column lg-12" data-animate-block>
+
+                        <h2 class="text-pretitle" data-animate-el>
+                            Recent Works
+                        </h2>
+                        <p class="h1" data-animate-el>
+                            Here are some of my favorite projects I have done lately. Feel free to check them out.
+                        </p>
+    
+                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-01">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/fuji.jpg"
+                                             srcset="images/portfolio/fuji.jpg 1x, images/portfolio/fuji@2x.jpg 2x"  alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Website
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Retro Camera.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-02">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/lamp.jpg" 
+                                             srcset="images/portfolio/lamp.jpg 1x, images/portfolio/lamp@2x.jpg 2x" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Product Design
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            The White Lamp.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-03">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/rucksack.jpg" 
+                                             srcset="images/portfolio/rucksack.jpg 1x, images/portfolio/rucksack@2x.jpg 2x" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Branding
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Rucksuck.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-04">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/skaterboy.jpg"
+                                             srcset="images/portfolio/skaterboy.jpg 1x, images/portfolio/skaterboy@2x.jpg 2x" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Website
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Since Day One.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-05">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/sanddunes.jpg" 
+                                             srcset="images/portfolio/sanddunes.jpg 1x, images/portfolio/sanddunes@2x.jpg 2x" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Illustration
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Sand Dunes.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-06">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/portfolio/minimalismo.jpg" 
+                                             srcset="images/portfolio/minimalismo.jpg 1x, images/portfolio/minimalismo@2x.jpg 2x" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Branding
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Minimalismo.
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                        </ul> <!-- end folio-list -->
+
+                    </div> <!-- end column -->
+
+
+                    <!-- Modal Templates Popup
+                    -------------------------------------------- -->
+                    <div id="modal-01" hidden>
+                        <div class="modal-popup">
+                            <img src="images/portfolio/gallery/g-fuji.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Retro Camera</h5>
+                                <p>Odio soluta enim quos sit asperiores rerum rerum repudiandae cum. Vel voluptatem alias qui assumenda iure et expedita voluptatem. Ratione officiis quae.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Branding</li>
+                                    <li>Product Design</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                    <div id="modal-02" hidden>
+                        <div class="modal-popup">
+                            <img src="images/portfolio/gallery/g-lamp.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>The White Lamp</h5>
+                                <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Branding</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                    <div id="modal-03" hidden>
+                        <div class="modal-popup">
+                            <img src="images/portfolio/gallery/g-rucksack.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Rucksuck</h5>
+                                <p>Exercitationem reprehenderit quod explicabo consequatur aliquid ut magni ut. Deleniti quo corrupti illum velit eveniet ratione necessitatibus ipsam mollitia.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Product Design</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                    <div id="modal-04" hidden>
+                        <div class="modal-popup">
+                            <img src="images/portfolio/gallery/g-skaterboy.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Since Day One</h5>
+                                <p>Dolores velit qui quos nobis. Aliquam delectus voluptas quos possimus non voluptatem voluptas voluptas. Est doloribus eligendi porro doloribus voluptatum.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Website</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                    <div id="modal-05" hidden>
+                        <div class="modal-popup">
+
+                            <img src="images/portfolio/gallery/g-sanddunes.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Sand Dunes</h5>
+                                <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Illustration</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                    <div id="modal-06" hidden>
+                        <div class="modal-popup">
+                            <img src="images/portfolio/gallery/g-minimalismo.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Minimalismo</h5>
+                                <p>Quisquam vel libero consequuntur autem voluptas. Qui aut vero. Omnis fugit mollitia cupiditate voluptas. Aenean sollicitudin, lorem quis bibendum auctor.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Branding</li>
+                                    <li>Product Design</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://www.behance.net/" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div> <!-- end modal -->
+
+                </div> <!-- end works-portfolio -->
+
+
+                <div class="row testimonials">
+                    <div class="column lg-12" data-animate-block>
+        
+                        <div class="swiper-container testimonial-slider" data-animate-el>
+        
+                            <div class="swiper-wrapper">
+
+                                <div class="testimonial-slider__slide swiper-slide">
+                                    <div class="testimonial-slider__author">
+                                        <img src="images/avatars/user-02.jpg" alt="Author image" class="testimonial-slider__avatar">
+                                        <cite class="testimonial-slider__cite">
+                                            <strong>Tim Cook</strong>
+                                            <span>CEO, Apple</span>
+                                        </cite>
+                                    </div>
+                                    <p>
+                                    Molestiae incidunt consequatur quis ipsa autem nam sit enim magni. Voluptas tempore rem. 
+                                    Explicabo a quaerat sint autem dolore ducimus ut consequatur neque.  Nisi dolores quaerat fuga rem nihil nostrum.
+                                    Laudantium quia consequatur molestias delectus culpa.
+                                    </p>
+                                </div> <!-- end testimonial-slider__slide -->
+                
+                                <div class="testimonial-slider__slide swiper-slide">
+                                    <div class="testimonial-slider__author">
+                                        <img src="images/avatars/user-03.jpg" alt="Author image" class="testimonial-slider__avatar">
+                                        <cite class="testimonial-slider__cite">
+                                            <strong>Sundar Pichai</strong>
+                                            <span>CEO, Google</span>
+                                        </cite>
+                                    </div>
+                                    <p>
+                                    Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
+                                    Nisi eaque consequatur. Voluptatem dignissimos ut ducimus accusantium perspiciatis.
+                                    Quasi voluptas eius distinctio. Atque eos maxime.
+                                    </p>
+                                </div> <!-- end testimonial-slider__slide -->
+                
+                                <div class="testimonial-slider__slide swiper-slide">
+                                    <div class="testimonial-slider__author">
+                                        <img src="images/avatars/user-01.jpg" alt="Author image" class="testimonial-slider__avatar">
+                                        <cite class="testimonial-slider__cite">
+                                            <strong>Satya Nadella</strong>
+                                            <span>CEO, Microsoft</span>
+                                        </cite>
+                                    </div>
+                                    <p>
+                                    Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.  
+                                    Autem eaque officia cum exercitationem sunt voluptatum accusamus. Quasi voluptas eius distinctio.
+                                    Voluptatem dignissimos ut.
+                                    </p>
+                                </div> <!-- end testimonial-slider__slide -->
+        
+                                <div class="testimonial-slider__slide swiper-slide">
+                                    <div class="testimonial-slider__author">
+                                        <img src="images/avatars/user-06.jpg" alt="Author image" class="testimonial-slider__avatar">
+                                        <cite class="testimonial-slider__cite">
+                                            <strong>Jeff Bezos</strong>
+                                            <span>CEO, Amazon</span>
+                                        </cite>
+                                    </div>
+                                    <p>
+                                    Nunc interdum lacus sit amet orci. Vestibulum dapibus nunc ac augue. Fusce vel dui. In ac felis 
+                                    quis tortor malesuada pretium. Curabitur vestibulum aliquam leo. Qui sed at corrupti expedita voluptas odit. 
+                                    Nihil ea quia nesciunt. Ducimus aut sed ipsam.
+                                    </p>
+                                </div> <!-- end testimonial-slider__slide -->
             
-    <div id="csec">
+                            </div> <!-- end swiper-wrapper -->
+        
+                            <div class="swiper-pagination"></div>
+        
+                        </div> <!-- end swiper-container -->
+        
+                    </div> <!-- end column -->
+                </div> <!-- end row testimonials -->
 
-        <!-- 
-            Landing Section
-        -->
-        <div id="landing">
-            <div class="hello animate pop delay-1 animate-forward">
+            </section> <!-- end s-works -->
 
-                <div class="profile-card grow">
-                    <img src="./assets/face_circle.png" id="profile"/>
-                    <div class="profile-card-details">
-                        <p class="cardp text-bold">
-                            Michael Dodis
-                        </p>
-                        <p class="cardp">
-                            Software Engineer specialized in Graphics
-                        </p>
-                        <span class="spacer"></span>
-                        <p class="cardp">
-                            <b>Location</b>: Geneva, Switzerland
+
+            <!-- ### contact
+            ================================================== -->
+            <section id="contact" class="s-contact target-section">
+
+                <div class="row contact-top">
+                    <div class="column lg-12">
+                        <h2 class="text-pretitle">
+                            Get In Touch
+                        </h2>
+
+                        <p class="h1">
+                            I love to hear from you.
+                            Whether you have a question or just 
+                            want to chat about design, tech & art — shoot me a message.
                         </p>
                     </div>
+                </div> <!-- end contact-top -->
+
+                <div class="row contact-bottom">
+                    <div class="column lg-3 md-5 tab-6 stack-on-550 contact-block">
+                        <h3 class="text-pretitle">Reach me at</h3>
+                        <p class="contact-links">
+                            <a href="mailto:michaeldodisgr@gmail.com" class="mailtoui">michaeldodisgr@gmail.com</a> <br>
+                            <!-- <a href="tel:+41767048721">+41 76 704 8721</a> -->
+                        </p>
+                    </div>
+                    <div class="column lg-4 md-5 tab-6 stack-on-550 contact-block">
+                        <h3 class="text-pretitle">Social</h3>
+                        <ul class="contact-social">
+                            <li><a href="https://github.com/mdodis">GitHub</a></li>
+                            <li><a href="https://x.com/mdodis_t">Twitter</a></li>
+                            <li><a href="https://mdodis.itch.io">itch.io</a></li>
+                        </ul>
+                    </div>
+                    <div class="column lg-4 md-12 contact-block">
+                        <a href="mailto:michaeldodisgr@gmail.com" class="mailtoui btn btn--medium u-fullwidth contact-btn">Say Hello.</a>
+                    </div>
+                </div> <!-- end contact-bottom -->
+
+            </section> <!-- end contact -->
+
+        </main> <!-- end s-content -->
+
+
+        <!-- ## footer
+        ================================================== -->
+        <footer class="s-footer">
+
+            <div class="row">
+                <div class="column ss-copyright">
+                    <span>© Copyright Michael Dodis 2025</span> 
+                    <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>
+                </div>
+
+                <div class="ss-go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+                    </a>
                 </div>
             </div>
-        </div>
+
+        </footer> <!-- end s-footer -->
+
+    </div> <!-- end -s-pagewrap -->
 
 
-        <div class="msec msec-bg1" id="about">
-            <div class="msec-border1"></div>
-            <div class="right-triangle"></div>
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 
-            <div class="msec-content">
-                <p>
-                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
-               </p>
-            </div>
-        </div>
-
-        <!-- 
-            2nd Section
-        -->
-        <div class="msec msec-bg2" id="work">
-            <div class="msec-content">
-               <p>
-                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
-               </p>
-            </div>
-        </div>
-
-        <!-- 
-            3rd Section
-        -->
-        <div class="msec msec-bg1" id="projects">
-            <div class="msec-border2"></div>
-            <div class="left-triangle"></div>
-            <div class="msec-content">
-               <p>
-                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
-               </p>
-            </div>
-        </div>
-
-    </div>
 </body>
-
-<script>
-    window.onload = function() {
-    };
-</script>
 </html>

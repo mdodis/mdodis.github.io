@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<style>
+    :root {
+        --falu-red: #721817ff;
+        --sandy-brown: #fa9f42ff;
+        --indigo-dye: #2b4162ff;
+        --dartmouth-green: #0b6e4fff;
+        --platinum: #e0e0e2ff;
+
+        --k-background1: var(--platinum);
+        --k-background2: var(--sandy-brown);
+
+        --k-min-section-height: 450px;
+        --k-triangle-size: 32px;
+        --k-triangle-border-size: 35px;
+
+        --k-border-1-grad: linear-gradient(90deg,
+                                           rgba(42, 123, 155, 1) 0%,
+                                           rgba(87, 199, 133, 1) 50%,
+                                           rgba(237, 221, 83, 1) 100%);
+    }
+
+    html {
+        font-family: sans-serif;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+
+    .animate.pop {
+        animation-duration: 0.5s;
+        animation-name: animate-pop;
+        animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
+    }
+
+    .animate-forward {
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes animate-pop {
+        0% {
+            opacity: 0;
+            transform: scale(0.5, 0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1, 1);
+        }
+    }
+
+    .delay-1 { animation-delay: 0.6s; }  
+    .delay-2 { animation-delay: 0.7s; }
+    .delay-3 { animation-delay: 0.8s; }
+    .delay-9 { animation-delay: 1.8s; }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        .animate { animation: none !important; }
+    }
+
+    .msec {
+        display: flex;
+        min-height: var(--k-min-section-height);
+        /*justify-content: center;*/
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .msec-bg1 {
+        background-color: var(--k-background1);
+    }
+
+    .msec-border1 {
+        position: absolute;
+        bottom: -2px;
+        right: 0px;
+        height: 2px;
+        width: 100%;
+        box-shadow: 0px 0 20px 0 black;
+        /*transition: background-position 0.02s ease-in;*/
+    }
+
+    .msec-border2 {
+        position: absolute;
+        top: -2px;
+        right: 0px;
+        height: 2px;
+        width: 100%;
+        box-shadow: inset 20px  black;
+        /*transition: background-position 0.02s ease-in;*/
+    }
+
+    .msec-bg2 {
+        background-color: var(--k-background2);
+    }
+
+    .msec-content {
+        margin: 0px 8px 8px 24px;
+    }
+
+    .left-triangle {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        top: 0%;
+        left: 0%;
+        border-style: solid;
+        border-width: var(--k-triangle-size) var(--k-triangle-size) 0 0;
+        border-color: var(--k-background2) transparent transparent transparent ;
+        transform: rotate(0deg);
+    }
+
+    .right-triangle {
+        position: absolute;
+        box-shadow: 10px 10px 0px 0px black;
+        width: 0px;
+        height: 0px;
+        bottom: 0%;
+        right: 0%;
+        border-style: solid;
+        border-width: 0 0 var(--k-triangle-size) var(--k-triangle-size);
+        border-color: transparent transparent var(--k-background2) transparent;
+        /*border-color: transparent transparent red transparent;*/
+        transform: rotate(0deg);
+    }
+
+    #csec {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    #profile {
+        width: 200px;
+        height: 200px;
+        /*border: 2px solid black;*/
+        box-shadow: 0px 0 8px 0 black;
+        border-radius: 50%;
+        background-color: grey;
+        margin: 8px;
+        margin-right: 16px;
+    }
+
+    #landing {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 100px;
+        padding-bottom: 300px;
+        background-color: rgba(50, 50, 50, 1.0);
+    }
+
+    .navbutton {
+        background-color: transparent;
+        color: white;
+        font-size: 1em;
+        border: 0px solid transparent;
+        min-width: 80px;
+        transition: box-shadow .2s ease-in-out;
+    }
+
+    .navbutton:hover {
+        box-shadow: 0 2px 0 0 whitesmoke; /* Border bottom */
+    }
+
+    .hello {
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        .animate { animation: none !important; }
+    }
+    .profile-card {
+        display: flex;
+        justify-content: center;
+        background-color: var(--platinum);
+        border-radius: 18px;
+        border: 0 solid transparent;
+        padding: 16px;
+        box-shadow: 0px 0 20px 0 black;
+        font-size: 1o em;
+         
+    }
+
+    .grow {
+        transition: all .2s ease-in-out;
+    }
+
+    .grow:hover {
+        transform: scale(1.2);
+    }
+
+    .profile-card:hover {
+        transform: scale(1.2, 1.2);
+    }
+
+    .profile-card-details {
+        display: flex;
+        margin-left: 20px;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 8px;
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+
+    .cardp {
+        margin: 0;
+        padding: 0;
+        font-size: 1em;
+    }
+
+    #menu {
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        background-color: #050505a4;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        min-height: 60px;
+
+        transition: background-color 0.2s ease-in;
+    }
+
+    .spacer {
+        flex-grow: 100;
+        flex-shrink: 100;
+    }
+
+    #menu:hover {
+        background-color: #050505bf;
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Michael Dodis</title>
+</head>
+<body>
+    <nav id="menu">
+        <button class="navbutton">Home</button>
+        <button class="navbutton">About</button>
+        <button class="navbutton">Work</button>
+        <button class="navbutton">Projects</button>
+    </nav>
+            
+    <div id="csec">
+
+        <!-- 
+            Landing Section
+        -->
+        <div id="landing">
+            <div class="hello animate pop delay-1 animate-forward">
+
+                <div class="profile-card grow">
+                    <img src="./assets/face_circle.png" id="profile"/>
+                    <div class="profile-card-details">
+                        <p class="cardp text-bold">
+                            Michael Dodis
+                        </p>
+                        <p class="cardp">
+                            Software Engineer specialized in Graphics
+                        </p>
+                        <span class="spacer"></span>
+                        <p class="cardp">
+                            <b>Location</b>: Geneva, Switzerland
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="msec msec-bg1" id="about">
+            <div class="msec-border1"></div>
+            <div class="right-triangle"></div>
+
+            <div class="msec-content">
+                <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+        <!-- 
+            2nd Section
+        -->
+        <div class="msec msec-bg2" id="work">
+            <div class="msec-content">
+               <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+        <!-- 
+            3rd Section
+        -->
+        <div class="msec msec-bg1" id="projects">
+            <div class="msec-border2"></div>
+            <div class="left-triangle"></div>
+            <div class="msec-content">
+               <p>
+                   Hi there! I'm Michael Dodis, a <b>Software Engineer</b> situated in Geneva, Switzerland
+               </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+    };
+</script>
+</html>
